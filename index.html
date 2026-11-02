@@ -122,46 +122,97 @@
     }
     .mobile-menu.is-open { display: block; }
     .hero {
+      min-height: 100vh;
       min-height: 100svh;
       position: relative;
       isolation: isolate;
       display: flex;
       align-items: center;
-      overflow: hidden;
+      overflow: visible;
       color: white;
       background: var(--baka-brown);
+      margin-bottom: 5.5rem;
     }
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      z-index: -2;
+      z-index: -1;
       background:
-        linear-gradient(90deg, rgba(25,15,12,.94) 0%, rgba(25,15,12,.78) 48%, rgba(25,15,12,.35) 100%),
-        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=85');
+        linear-gradient(rgba(44, 26, 20, .7), rgba(44, 26, 20, .7)),
+        url('https://images.unsplash.com/photo-1541888098179-9b883239020c?q=80&w=2070&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
     }
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: auto 0 0;
-      height: 180px;
-      z-index: -1;
-      background: linear-gradient(transparent, rgba(20,12,9,.45));
-    }
     .eyebrow { color: var(--baka-gold); letter-spacing: .22em; }
-    .hero-title { max-width: 900px; text-wrap: balance; }
+    .hero-title { max-width: 1100px; text-wrap: balance; }
+    .stats-bar {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      bottom: 0;
+      width: min(100% - 2.5rem, 1320px);
+      transform: translate(-50%, 50%);
+      background: var(--baka-brown);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      box-shadow: 0 18px 45px rgba(26, 18, 14, .2);
+    }
+    .stat-item {
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.25rem .75rem;
+      border-right: 1px solid rgba(255,255,255,.14);
+    }
+    .stat-item:last-child { border-right: 0; }
+    .stat-number {
+      color: var(--baka-gold);
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1;
+    }
+    .stat-label {
+      margin-top: .65rem;
+      color: rgba(255,255,255,.85);
+      font-family: 'Inter', sans-serif;
+      font-size: .72rem;
+      line-height: 1.4;
+      font-weight: 500;
+      letter-spacing: .04em;
+    }
     .section-kicker { color: #9a7628; letter-spacing: .2em; }
     .placeholder-section { min-height: 45vh; }
+    #services { padding-top: 9rem; }
     @media (max-width: 767px) {
-      .hero::before {
-        background:
-          linear-gradient(90deg, rgba(25,15,12,.92), rgba(25,15,12,.7)),
-          url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80');
-        background-size: cover;
-        background-position: center;
+      .hero { margin-bottom: 12rem; }
+      .stats-bar {
+        bottom: 0;
+        width: calc(100% - 2rem);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        transform: translate(-50%, 50%);
       }
+      .stat-item {
+        min-height: 112px;
+        border-right: 1px solid rgba(255,255,255,.14);
+        border-bottom: 1px solid rgba(255,255,255,.14);
+      }
+      .stat-item:nth-child(2) { border-right: 0; }
+      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: 0; }
+      .stat-number { font-size: 2.35rem; }
+      .stat-label { font-size: .66rem; }
+      #services { padding-top: 5rem; }
+    }
+    @media (max-width: 380px) {
+      .stats-bar { grid-template-columns: 1fr; }
+      .stat-item { min-height: 90px; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.14); }
+      .stat-item:nth-child(3) { border-bottom: 1px solid rgba(255,255,255,.14); }
+      .stat-item:last-child { border-bottom: 0; }
+      .hero { margin-bottom: 23rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -216,32 +267,46 @@
   </header>
 
   <main>
-    <!-- Introductory hero: the remaining sections are ready for the next build milestone. -->
+    <!-- Full-height hero with overlapping company statistics -->
     <section class="hero" id="home">
-      <div class="mx-auto w-full max-w-[1440px] px-5 pb-20 pt-36 sm:px-8 lg:px-12 lg:pt-40">
-        <div class="max-w-4xl">
+      <div class="mx-auto w-full max-w-[1440px] px-5 pb-24 pt-36 sm:px-8 lg:px-12 lg:pt-40">
+        <div class="max-w-5xl">
           <p class="eyebrow mb-6 text-[11px] font-bold uppercase sm:text-xs">Construction • Project Delivery • Port Harcourt</p>
-          <h1 class="hero-title font-display text-6xl font-semibold uppercase leading-[.98] tracking-tight sm:text-7xl lg:text-[6.5rem]">
-            Building with<br><span class="text-[#C9A84C]">purpose.</span> Built to last.
+          <h1 class="hero-title font-display text-5xl font-semibold uppercase leading-[.98] tracking-tight sm:text-7xl lg:text-[7rem]">
+            Building Port Harcourt's Future.
           </h1>
-          <p class="mt-8 max-w-xl text-base leading-8 text-white/75 sm:text-lg">
-            From the first foundation to the final finish, we bring craftsmanship, clarity and commitment to every build.
+          <p class="mt-8 max-w-2xl text-base leading-8 text-white sm:text-lg">
+            Premium building construction, project management, and site supervision.
           </p>
           <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a href="#services" class="gold-button px-8 py-5 text-xs uppercase tracking-[.13em]">
-              Explore our services <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            <a href="#projects" class="gold-button px-8 py-5 text-xs uppercase tracking-[.13em]">
+              View Projects <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
-            <a href="#projects" class="inline-flex items-center justify-center border border-white/45 px-8 py-5 text-xs font-bold uppercase tracking-[.13em] text-white transition hover:border-[#C9A84C] hover:text-[#C9A84C]">
-              View our work
+            <a href="#contact" class="inline-flex items-center justify-center border border-white px-8 py-5 text-xs font-bold uppercase tracking-[.13em] text-white transition hover:border-[#C9A84C] hover:text-[#C9A84C]">
+              Contact Us
             </a>
           </div>
         </div>
-        <div class="mt-20 flex items-center gap-4 text-[10px] font-semibold uppercase tracking-[.2em] text-white/55">
-          <span class="h-px w-12 bg-[#C9A84C]"></span>
-          Delivering quality across every detail
+      </div>
+
+      <div class="stats-bar" aria-label="Baka B Contractors company statistics">
+        <div class="stat-item">
+          <span class="stat-number">15+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">50+</span>
+          <span class="stat-label">Projects Completed</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">On-Time Delivery</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Compromises on Quality</span>
         </div>
       </div>
-      <div class="absolute bottom-8 right-6 hidden font-display text-sm uppercase tracking-[.25em] text-white/40 [writing-mode:vertical-rl] lg:block">Baka B Contractors · PH</div>
     </section>
 
     <section id="services" class="placeholder-section bg-[#FAFAF8] px-5 py-24 sm:px-8 lg:px-12">
