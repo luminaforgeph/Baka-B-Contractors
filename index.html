@@ -847,12 +847,24 @@
         countersStarted = true;
       }
 
-      // This acknowledgement is not a live submission; configure a form endpoint before launch.
+      // Demo quote-form interaction: acknowledge locally without sending or storing data.
       if (quoteForm) {
         quoteForm.addEventListener('submit', event => {
           event.preventDefault();
+
           const notice = document.getElementById('formNotice');
-          if (notice) notice.textContent = 'Thank you for your interest. Please use the phone or WhatsApp contact while the enquiry form is being connected.';
+
+          // Clear the submitted fields and show a temporary confirmation.
+          quoteForm.reset();
+
+          if (notice) {
+            notice.textContent = 'Thank you! Your quote request has been received. We will contact you shortly.';
+            notice.classList.add('mt-2');
+
+            window.setTimeout(() => {
+              notice.textContent = '';
+            }, 7000);
+          }
         });
       }
 
