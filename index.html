@@ -629,6 +629,8 @@
             <button type="submit" class="gold-button w-full px-8 py-5 text-xs uppercase tracking-[.13em] sm:w-auto">
               Request a Free Quote <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </button>
+            <p id="formNotice" class="text-sm leading-6 text-[#2C1A14]" role="status" aria-live="polite"></p>
+          </form>
         </div>
 
         <aside class="flex flex-col justify-between bg-[#2C1A14] p-8 text-white sm:p-10 lg:p-12">
@@ -654,7 +656,7 @@
                 <i class="fa-solid fa-envelope mt-1 text-lg text-[#C9A84C]" aria-hidden="true"></i>
                 <div>
                   <p class="text-[10px] font-bold uppercase tracking-[.16em] text-white/50">Email</p>
-                  <a href="mailto:Bakabcontractors@gmail.com" class="mt-2 inline-block text-sm transition hover:text-[#C9A84C]">Bakabcontractors@gmail.com" </a>
+                  <a href="mailto:Bakabcontractors@gmail.com" class="mt-2 inline-block text-sm transition hover:text-[#C9A84C]">Bakabcontractors@gmail.com</a>
                 </div>
               </div>
             </div>
@@ -696,13 +698,30 @@
       const mobileMenu = document.getElementById('mobileMenu');
       const quoteForm = document.getElementById('quoteForm');
 
-      // Fade out the preloader 1.5 seconds after the window load event.
-      window.addEventListener('load', () => {
+      // Start the fade 1.5 seconds after the page has fully loaded, then remove
+      // the preloader from layout and interaction after its CSS transition ends.
+      const hidePreloader = () => {
         window.setTimeout(() => {
-          if (preloader) preloader.classList.add('is-hidden');
+          if (!preloader) {
+            document.body.classList.remove('is-loading');
+            return;
+          }
+          preloader.classList.add('is-hidden');
           document.body.classList.remove('is-loading');
+
+          // The fallback also handles reduced-motion and browsers without transitionend.
+          const removePreloader = () => {
+            preloader.style.display = 'none';
+          };
+          preloader.addEventListener('transitionend', removePreloader, { once: true });
+          window.setTimeout(removePreloader, 700);
         }, 1500);
-      }, { once: true });
+      };
+      if (document.readyState === 'complete') {
+        hidePreloader();
+      } else {
+        window.addEventListener('load', hidePreloader, { once: true });
+      }
 
       // Change the navbar background and apply blur after 50px of scrolling.
       const updateNav = () => {
