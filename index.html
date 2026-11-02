@@ -86,9 +86,10 @@
       transition: background .3s ease, padding .3s ease, box-shadow .3s ease;
     }
     .site-nav.is-scrolled {
-      background: rgba(44, 26, 20, .97);
+      background: #2C1A14;
       box-shadow: 0 8px 30px rgba(0,0,0,.12);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .nav-link { position: relative; transition: color .2s ease; }
     .nav-link::after {
@@ -278,6 +279,32 @@
       color: var(--baka-ink);
       font-size: 1rem;
     }
+    .whatsapp-float {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      z-index: 1100;
+      display: grid;
+      width: 62px;
+      height: 62px;
+      place-items: center;
+      border-radius: 50% !important;
+      background: #25D366;
+      color: #fff;
+      font-size: 1.9rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,.22);
+      animation: whatsapp-pulse 2.2s infinite;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .whatsapp-float:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.28); }
+    @keyframes whatsapp-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37,211,102,.48), 0 8px 24px rgba(0,0,0,.22); }
+      70% { box-shadow: 0 0 0 14px rgba(37,211,102,0), 0 8px 24px rgba(0,0,0,.22); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0), 0 8px 24px rgba(0,0,0,.22); }
+    }
+    @media (max-width: 767px) {
+      .whatsapp-float { right: 1rem; bottom: 1rem; width: 56px; height: 56px; font-size: 1.7rem; }
+    }
     @media (hover: none) {
       .project-overlay { opacity: 1; transform: none; background: linear-gradient(transparent, rgba(44,26,20,.82)); }
     }
@@ -384,19 +411,19 @@
 
       <div class="stats-bar" aria-label="Baka B Contractors company statistics">
         <div class="stat-item">
-          <span class="stat-number">15+</span>
+          <span class="stat-number" data-target="15" data-suffix="+">0+</span>
           <span class="stat-label">Years Experience</span>
         </div>
         <div class="stat-item">
-          <span class="stat-number">50+</span>
+          <span class="stat-number" data-target="50" data-suffix="+">0+</span>
           <span class="stat-label">Projects Completed</span>
         </div>
         <div class="stat-item">
-          <span class="stat-number">100%</span>
+          <span class="stat-number" data-target="100" data-suffix="%">0%</span>
           <span class="stat-label">On-Time Delivery</span>
         </div>
         <div class="stat-item">
-          <span class="stat-number">0</span>
+          <span class="stat-number" data-target="0" data-suffix="">0</span>
           <span class="stat-label">Compromises on Quality</span>
         </div>
       </div>
@@ -645,62 +672,119 @@
     </section>
   </main>
 
+  <!-- Site footer -->
+  <footer class="bg-[#1A0F0C] px-5 py-12 text-white sm:px-8 lg:px-12">
+    <div class="mx-auto flex max-w-[1440px] flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <a href="#home" class="font-display text-3xl font-bold tracking-tight" aria-label="Baka B Contractors home">BAKA B<span class="text-[#C9A84C]">.</span></a>
+      <p class="text-xs leading-6 text-white/55">© <span id="copyrightYear">2026</span> Baka B Contractors. All rights reserved.</p>
+      <div class="flex items-center gap-5 text-lg" aria-label="Social media links">
+        <a href="#" class="text-white/70 transition hover:text-[#C9A84C]" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="text-white/70 transition hover:text-[#C9A84C]" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="text-white/70 transition hover:text-[#C9A84C]" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+      <p class="text-xs font-medium tracking-wide text-white/65">Built by <span class="font-bold text-[#C9A84C]">Lumina Forge</span></p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp contact shortcut -->
+  <a class="whatsapp-float" href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat with Baka B Contractors on WhatsApp">
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+  </a>
+
   <script>
     (() => {
       const preloader = document.getElementById('preloader');
       const nav = document.getElementById('siteNav');
       const menuToggle = document.getElementById('menuToggle');
       const mobileMenu = document.getElementById('mobileMenu');
+      const quoteForm = document.getElementById('quoteForm');
 
-      const hidePreloader = () => {
-        if (!preloader || preloader.classList.contains('is-hidden')) return;
-        preloader.classList.add('is-hidden');
-        document.body.classList.remove('is-loading');
-      };
+      // Fade out the preloader 1.5 seconds after the window load event.
+      window.addEventListener('load', () => {
+        window.setTimeout(() => {
+          if (preloader) preloader.classList.add('is-hidden');
+          document.body.classList.remove('is-loading');
+        }, 1500);
+      }, { once: true });
 
-      window.addEventListener('load', hidePreloader, { once: true });
-      // Prevent a stalled external asset from leaving the page behind the loader.
-      window.setTimeout(hidePreloader, 2200);
-
+      // Change the navbar background and apply blur after 50px of scrolling.
       const updateNav = () => {
-        nav.classList.toggle('is-scrolled', window.scrollY > 24);
+        if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 50);
       };
       updateNav();
       window.addEventListener('scroll', updateNav, { passive: true });
 
+      // Accessible mobile menu toggle.
       const closeMenu = () => {
+        if (!mobileMenu || !menuToggle) return;
         mobileMenu.classList.remove('is-open');
         menuToggle.setAttribute('aria-expanded', 'false');
         menuToggle.setAttribute('aria-label', 'Open navigation menu');
         menuToggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
       };
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = mobileMenu.classList.toggle('is-open');
+          menuToggle.setAttribute('aria-expanded', String(isOpen));
+          menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+          menuToggle.innerHTML = isOpen
+            ? '<i class="fa-solid fa-xmark" aria-hidden="true"></i>'
+            : '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+        });
+        document.querySelectorAll('.mobile-nav-link, #mobileMenu a.gold-button').forEach(link => {
+          link.addEventListener('click', closeMenu);
+        });
+        document.addEventListener('keydown', event => {
+          if (event.key === 'Escape') closeMenu();
+        });
+      }
 
-      menuToggle.addEventListener('click', () => {
-        const isOpen = mobileMenu.classList.toggle('is-open');
-        menuToggle.setAttribute('aria-expanded', String(isOpen));
-        menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
-        menuToggle.innerHTML = isOpen
-          ? '<i class="fa-solid fa-xmark" aria-hidden="true"></i>'
-          : '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
-      });
+      // Count up the stats once they enter the viewport.
+      const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animateCounter = element => {
+        const target = Number(element.dataset.target || 0);
+        const suffix = element.dataset.suffix || '';
+        if (prefersReducedMotion) {
+          element.textContent = target.toLocaleString() + suffix;
+          return;
+        }
+        const duration = 1500;
+        const startTime = performance.now();
+        const tick = now => {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 4);
+          element.textContent = Math.floor(target * eased).toLocaleString() + suffix;
+          if (progress < 1) window.requestAnimationFrame(tick);
+          else element.textContent = target.toLocaleString() + suffix;
+        };
+        window.requestAnimationFrame(tick);
+      };
+      if ('IntersectionObserver' in window && statNumbers.length) {
+        const statsObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              animateCounter(entry.target);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.35 });
+        statNumbers.forEach(number => statsObserver.observe(number));
+      } else {
+        statNumbers.forEach(animateCounter);
+      }
 
-      document.querySelectorAll('.mobile-nav-link, #mobileMenu a.gold-button').forEach(link => {
-        link.addEventListener('click', closeMenu);
-      });
-
-      document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') closeMenu();
-      });
-
-      // The form is front-end markup only until a real submission endpoint is configured.
-      const quoteForm = document.getElementById('quoteForm');
+      // This acknowledgement is not a live submission; configure a form endpoint before launch.
       if (quoteForm) {
         quoteForm.addEventListener('submit', event => {
           event.preventDefault();
           const notice = document.getElementById('formNotice');
-          notice.textContent = 'Thank you for your interest. Please use the phone or WhatsApp contact while the enquiry form is being connected.';
+          if (notice) notice.textContent = 'Thank you for your interest. Please use the phone or WhatsApp contact while the enquiry form is being connected.';
         });
       }
+
+      const year = document.getElementById('copyrightYear');
+      if (year) year.textContent = new Date().getFullYear();
     })();
   </script>
 </body>
