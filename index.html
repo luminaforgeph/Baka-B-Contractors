@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2C1A14">
+  <meta name="description" content="Baka B Contractors — dependable construction, building and project delivery in Port Harcourt, Nigeria.">
+  <title>Baka B Contractors | Building with Purpose</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            baka: {
+              brown: '#2C1A14',
+              ivory: '#FAFAF8',
+              gold: '#C9A84C',
+              ink: '#1A1A1A'
+            }
+          },
+          fontFamily: {
+            display: ['Oswald', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    :root {
+      --baka-brown: #2C1A14;
+      --baka-ivory: #FAFAF8;
+      --baka-gold: #C9A84C;
+      --baka-ink: #1A1A1A;
+    }
+    *, *::before, *::after {
+      border-radius: 0 !important;
+      box-sizing: border-box;
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      background: var(--baka-ivory);
+      color: var(--baka-ink);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.is-loading { overflow: hidden; }
+    .font-display { font-family: 'Oswald', sans-serif; }
+    .preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      background: var(--baka-brown);
+      transition: opacity .65s ease, visibility .65s ease;
+    }
+    .preloader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .preloader-mark {
+      color: var(--baka-gold);
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(4.5rem, 15vw, 10rem);
+      font-weight: 700;
+      line-height: .9;
+      letter-spacing: -.055em;
+      animation: mark-in .8s cubic-bezier(.2,.8,.2,1) both;
+    }
+    @keyframes mark-in {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .site-nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1000;
+      color: #fff;
+      background: transparent;
+      transition: background .3s ease, padding .3s ease, box-shadow .3s ease;
+    }
+    .site-nav.is-scrolled {
+      background: rgba(44, 26, 20, .97);
+      box-shadow: 0 8px 30px rgba(0,0,0,.12);
+      backdrop-filter: blur(12px);
+    }
+    .nav-link { position: relative; transition: color .2s ease; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 0;
+      height: 2px;
+      background: var(--baka-gold);
+      transition: width .25s ease;
+    }
+    .nav-link:hover { color: var(--baka-gold); }
+    .nav-link:hover::after { width: 100%; }
+    .gold-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      background: var(--baka-gold);
+      color: #111;
+      font-weight: 700;
+      transition: background .25s ease, color .25s ease, transform .25s ease;
+    }
+    .gold-button:hover { background: #dfc16f; transform: translateY(-2px); }
+    .menu-toggle { width: 44px; height: 44px; }
+    .mobile-menu {
+      display: none;
+      background: var(--baka-brown);
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .mobile-menu.is-open { display: block; }
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      color: white;
+      background: var(--baka-brown);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(25,15,12,.94) 0%, rgba(25,15,12,.78) 48%, rgba(25,15,12,.35) 100%),
+        url('https://images.unsplash.com/photo-施工?auto=format&fit=crop&w=2200&q=85');
+      background-size: cover;
+      background-position: center;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 180px;
+      z-index: -1;
+      background: linear-gradient(transparent, rgba(20,12,9,.45));
+    }
+    .eyebrow { color: var(--baka-gold); letter-spacing: .22em; }
+    .hero-title { max-width: 900px; text-wrap: balance; }
+    .section-kicker { color: #9a7628; letter-spacing: .2em; }
+    .placeholder-section { min-height: 45vh; }
+    @media (max-width: 767px) {
+      .hero::before {
+        background:
+          linear-gradient(90deg, rgba(25,15,12,.92), rgba(25,15,12,.7)),
+          url('https://images.unsplash.com/photo-施工?auto=format&fit=crop&w=1200&q=80');
+        background-size: cover;
+        background-position: center;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="is-loading">
+  <!-- Full-screen brand preloader -->
+  <div class="preloader" id="preloader" aria-label="Loading Baka B Contractors">
+    <div class="preloader-mark">BAKA B</div>
+  </div>
+
+  <!-- Fixed responsive navigation -->
+  <header class="site-nav" id="siteNav">
+    <nav class="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12" aria-label="Main navigation">
+      <a href="#home" class="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl" aria-label="Baka B Contractors home">
+        BAKA B<span class="text-[#C9A84C]">.</span>
+      </a>
+
+      <div class="hidden items-center gap-9 md:flex">
+        <a class="nav-link text-sm font-semibold" href="#home">Home</a>
+        <a class="nav-link text-sm font-semibold" href="#services">Services</a>
+        <a class="nav-link text-sm font-semibold" href="#projects">Projects</a>
+        <a class="nav-link text-sm font-semibold" href="#contact">Contact</a>
+        <a class="gold-button px-6 py-4 text-xs uppercase tracking-[.12em]" href="#contact">
+          Get a Quote <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <button class="menu-toggle flex items-center justify-center text-2xl text-white md:hidden" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+    </nav>
+
+    <div class="mobile-menu px-5 pb-6 md:hidden" id="mobileMenu">
+      <div class="flex flex-col gap-5 pt-3">
+        <a class="mobile-nav-link text-sm font-semibold" href="#home">Home</a>
+        <a class="mobile-nav-link text-sm font-semibold" href="#services">Services</a>
+        <a class="mobile-nav-link text-sm font-semibold" href="#projects">Projects</a>
+        <a class="mobile-nav-link text-sm font-semibold" href="#contact">Contact</a>
+        <a class="gold-button mt-2 w-full px-6 py-4 text-xs uppercase tracking-[.12em]" href="#contact">
+          Get a Quote <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Introductory hero: the remaining sections are ready for the next build milestone. -->
+    <section class="hero" id="home">
+      <div class="mx-auto w-full max-w-[1440px] px-5 pb-20 pt-36 sm:px-8 lg:px-12 lg:pt-40">
+        <div class="max-w-4xl">
+          <p class="eyebrow mb-6 text-[11px] font-bold uppercase sm:text-xs">Construction • Project Delivery • Port Harcourt</p>
+          <h1 class="hero-title font-display text-6xl font-semibold uppercase leading-[.98] tracking-tight sm:text-7xl lg:text-[6.5rem]">
+            Building with<br><span class="text-[#C9A84C]">purpose.</span> Built to last.
+          </h1>
+          <p class="mt-8 max-w-xl text-base leading-8 text-white/75 sm:text-lg">
+            From the first foundation to the final finish, we bring craftsmanship, clarity and commitment to every build.
+          </p>
+          <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a href="#services" class="gold-button px-8 py-5 text-xs uppercase tracking-[.13em]">
+              Explore our services <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <a href="#projects" class="inline-flex items-center justify-center border border-white/45 px-8 py-5 text-xs font-bold uppercase tracking-[.13em] text-white transition hover:border-[#C9A84C] hover:text-[#C9A84C]">
+              View our work
+            </a>
+          </div>
+        </div>
+        <div class="mt-20 flex items-center gap-4 text-[10px] font-semibold uppercase tracking-[.2em] text-white/55">
+          <span class="h-px w-12 bg-[#C9A84C]"></span>
+          Delivering quality across every detail
+        </div>
+      </div>
+      <div class="absolute bottom-8 right-6 hidden font-display text-sm uppercase tracking-[.25em] text-white/40 [writing-mode:vertical-rl] lg:block">Baka B Contractors · PH</div>
+    </section>
+
+    <section id="services" class="placeholder-section bg-[#FAFAF8] px-5 py-24 sm:px-8 lg:px-12">
+      <div class="mx-auto max-w-[1440px]">
+        <p class="section-kicker text-[11px] font-bold uppercase">What we do</p>
+        <h2 class="mt-4 font-display text-5xl uppercase leading-none text-[#2C1A14] sm:text-6xl">Services built around you.</h2>
+        <p class="mt-6 max-w-2xl leading-8 text-[#1A1A1A]/65">Our services and project capabilities will be presented here.</p>
+      </div>
+    </section>
+
+    <section id="projects" class="placeholder-section bg-[#2C1A14] px-5 py-24 text-white sm:px-8 lg:px-12">
+      <div class="mx-auto max-w-[1440px]">
+        <p class="eyebrow text-[11px] font-bold uppercase">Selected work</p>
+        <h2 class="mt-4 font-display text-5xl uppercase leading-none sm:text-6xl">Made with intention.</h2>
+        <p class="mt-6 max-w-2xl leading-8 text-white/65">Project highlights and case studies will be added here.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="placeholder-section bg-[#FAFAF8] px-5 py-24 sm:px-8 lg:px-12">
+      <div class="mx-auto max-w-[1440px]">
+        <p class="section-kicker text-[11px] font-bold uppercase">Start a conversation</p>
+        <h2 class="mt-4 font-display text-5xl uppercase leading-none text-[#2C1A14] sm:text-6xl">Let's build something solid.</h2>
+        <p class="mt-6 max-w-2xl leading-8 text-[#1A1A1A]/65">Contact details and the project enquiry experience will be added here.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const preloader = document.getElementById('preloader');
+      const nav = document.getElementById('siteNav');
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      const hidePreloader = () => {
+        if (!preloader || preloader.classList.contains('is-hidden')) return;
+        preloader.classList.add('is-hidden');
+        document.body.classList.remove('is-loading');
+      };
+
+      window.addEventListener('load', hidePreloader, { once: true });
+      // Prevent a stalled external asset from leaving the page behind the loader.
+      window.setTimeout(hidePreloader, 2200);
+
+      const updateNav = () => {
+        nav.classList.toggle('is-scrolled', window.scrollY > 24);
+      };
+      updateNav();
+      window.addEventListener('scroll', updateNav, { passive: true });
+
+      const closeMenu = () => {
+        mobileMenu.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+      };
+
+      menuToggle.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('is-open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+        menuToggle.innerHTML = isOpen
+          ? '<i class="fa-solid fa-xmark" aria-hidden="true"></i>'
+          : '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+      });
+
+      document.querySelectorAll('.mobile-nav-link, #mobileMenu a.gold-button').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeMenu();
+      });
+    })();
+  </script>
+</body>
+</html>
