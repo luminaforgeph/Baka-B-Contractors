@@ -528,11 +528,119 @@
       </div>
     </section>
 
-    <section id="contact" class="placeholder-section bg-[#FAFAF8] px-5 py-24 sm:px-8 lg:px-12">
+    <!-- Why choose Baka B -->
+    <section id="why-us" class="bg-[#2C1A14] px-5 py-24 text-white sm:px-8 lg:px-12 lg:py-32">
       <div class="mx-auto max-w-[1440px]">
-        <p class="section-kicker text-[11px] font-bold uppercase">Start a conversation</p>
-        <h2 class="mt-4 font-display text-5xl uppercase leading-none text-[#2C1A14] sm:text-6xl">Let's build something solid.</h2>
-        <p class="mt-6 max-w-2xl leading-8 text-[#1A1A1A]/65">Contact details and the project enquiry experience will be added here.</p>
+        <p class="eyebrow text-[11px] font-bold uppercase">The difference is in the details</p>
+        <h2 class="mt-4 font-display text-5xl font-semibold uppercase leading-none sm:text-6xl lg:text-7xl">The Baka B Standard</h2>
+        <div class="mt-14 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+          <article class="flex items-start gap-5 border-t border-white/20 pt-7">
+            <span class="mt-1 text-2xl text-[#C9A84C]" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+            <div>
+              <h3 class="font-display text-2xl uppercase sm:text-3xl">Engineering Precision</h3>
+              <p class="mt-3 max-w-sm text-sm leading-7 text-white/65">Every detail is considered, from technical planning to on-site execution, for work built to perform and endure.</p>
+            </div>
+          </article>
+          <article class="flex items-start gap-5 border-t border-white/20 pt-7">
+            <span class="mt-1 text-2xl text-[#C9A84C]" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+            <div>
+              <h3 class="font-display text-2xl uppercase sm:text-3xl">Local Expertise</h3>
+              <p class="mt-3 max-w-sm text-sm leading-7 text-white/65">Grounded in Port Harcourt, we understand the local context, people and practical demands of building in the region.</p>
+            </div>
+          </article>
+          <article class="flex items-start gap-5 border-t border-white/20 pt-7">
+            <span class="mt-1 text-2xl text-[#C9A84C]" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+            <div>
+              <h3 class="font-display text-2xl uppercase sm:text-3xl">Transparent Management</h3>
+              <p class="mt-3 max-w-sm text-sm leading-7 text-white/65">Clear communication, accountable coordination and consistent project updates from start to finish.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact and project enquiry -->
+    <section id="contact" class="bg-[#FAFAF8] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto grid max-w-[1440px] grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
+        <div>
+          <p class="section-kicker text-[11px] font-bold uppercase">Start a conversation</p>
+          <h2 class="mt-4 max-w-xl font-display text-5xl font-semibold uppercase leading-none text-[#2C1A14] sm:text-6xl">Let's build something solid.</h2>
+          <p class="mt-6 max-w-lg text-sm leading-7 text-[#1A1A1A]/65">Tell us a little about your project. Our team will be ready to discuss the next steps with you.</p>
+
+          <form id="quoteForm" class="mt-10 space-y-8">
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
+              <label class="block">
+                <span class="mb-2 block text-[11px] font-bold uppercase tracking-[.12em] text-[#2C1A14]">Name</span>
+                <input type="text" name="name" autocomplete="name" required placeholder="Your full name" class="w-full border-0 border-b border-[#2C1A14]/35 bg-transparent px-0 py-3 text-sm text-[#1A1A1A] outline-none transition placeholder:text-[#1A1A1A]/35 focus:border-[#C9A84C] focus:ring-0">
+              </label>
+              <label class="block">
+                <span class="mb-2 block text-[11px] font-bold uppercase tracking-[.12em] text-[#2C1A14]">Email</span>
+                <input type="email" name="email" autocomplete="email" required placeholder="you@example.com" class="w-full border-0 border-b border-[#2C1A14]/35 bg-transparent px-0 py-3 text-sm text-[#1A1A1A] outline-none transition placeholder:text-[#1A1A1A]/35 focus:border-[#C9A84C] focus:ring-0">
+              </label>
+            </div>
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
+              <label class="block">
+                <span class="mb-2 block text-[11px] font-bold uppercase tracking-[.12em] text-[#2C1A14]">Phone</span>
+                <input type="tel" name="phone" autocomplete="tel" placeholder="+234 ..." class="w-full border-0 border-b border-[#2C1A14]/35 bg-transparent px-0 py-3 text-sm text-[#1A1A1A] outline-none transition placeholder:text-[#1A1A1A]/35 focus:border-[#C9A84C] focus:ring-0">
+              </label>
+              <label class="block">
+                <span class="mb-2 block text-[11px] font-bold uppercase tracking-[.12em] text-[#2C1A14]">Project Type</span>
+                <select name="project_type" required class="w-full border-0 border-b border-[#2C1A14]/35 bg-transparent px-0 py-3 text-sm text-[#1A1A1A] outline-none transition focus:border-[#C9A84C] focus:ring-0">
+                  <option value="" disabled selected>Select a project type</option>
+                  <option>Building Construction</option>
+                  <option>Working Drawings</option>
+                  <option>Project Management</option>
+                  <option>Site Supervision</option>
+                  <option>Other / Not Sure Yet</option>
+                </select>
+              </label>
+            </div>
+            <label class="block">
+              <span class="mb-2 block text-[11px] font-bold uppercase tracking-[.12em] text-[#2C1A14]">Message</span>
+              <textarea name="message" rows="4" required placeholder="Tell us about your project..." class="w-full resize-y border-0 border-b border-[#2C1A14]/35 bg-transparent px-0 py-3 text-sm text-[#1A1A1A] outline-none transition placeholder:text-[#1A1A1A]/35 focus:border-[#C9A84C] focus:ring-0"></textarea>
+            </label>
+            <button type="submit" class="gold-button w-full px-8 py-5 text-xs uppercase tracking-[.13em] sm:w-auto">
+              Request a Free Quote <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </button>
+            <p id="formNotice" class="text-xs leading-6 text-[#1A1A1A]/55" role="status">This enquiry form is ready for connection to the company's preferred email or form service.</p>
+          </form>
+        </div>
+
+        <aside class="flex flex-col justify-between bg-[#2C1A14] p-8 text-white sm:p-10 lg:p-12">
+          <div>
+            <p class="eyebrow text-[11px] font-bold uppercase">Find us / Reach us</p>
+            <h3 class="mt-4 font-display text-4xl uppercase sm:text-5xl">Let's talk about your next project.</h3>
+            <div class="mt-12 space-y-8">
+              <div class="flex gap-5">
+                <i class="fa-solid fa-location-dot mt-1 text-lg text-[#C9A84C]" aria-hidden="true"></i>
+                <div>
+                  <p class="text-[10px] font-bold uppercase tracking-[.16em] text-white/50">Address</p>
+                  <p class="mt-2 text-sm leading-7">Port Harcourt, Rivers State, Nigeria<br><span class="text-white/50">[Street address to be confirmed]</span></p>
+                </div>
+              </div>
+              <div class="flex gap-5">
+                <i class="fa-solid fa-phone mt-1 text-lg text-[#C9A84C]" aria-hidden="true"></i>
+                <div>
+                  <p class="text-[10px] font-bold uppercase tracking-[.16em] text-white/50">Phone</p>
+                  <a href="tel:+2348000000000" class="mt-2 inline-block text-sm transition hover:text-[#C9A84C]">+234 800 000 0000 <span class="text-xs text-white/45">(placeholder)</span></a>
+                </div>
+              </div>
+              <div class="flex gap-5">
+                <i class="fa-solid fa-envelope mt-1 text-lg text-[#C9A84C]" aria-hidden="true"></i>
+                <div>
+                  <p class="text-[10px] font-bold uppercase tracking-[.16em] text-white/50">Email</p>
+                  <a href="mailto:hello@example.com" class="mt-2 inline-block text-sm transition hover:text-[#C9A84C]">hello@example.com <span class="text-xs text-white/45">(placeholder)</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" class="mt-14 inline-flex w-full items-center justify-center gap-3 bg-[#C9A84C] px-6 py-5 text-sm font-bold text-[#1A1A1A] transition hover:bg-[#dfc16f]">
+            <i class="fa-brands fa-whatsapp text-xl" aria-hidden="true"></i>
+            Chat on WhatsApp
+            <i class="fa-solid fa-arrow-up-right-from-square ml-auto text-xs" aria-hidden="true"></i>
+          </a>
+          <p class="mt-3 text-[10px] leading-5 text-white/45">Contact details and WhatsApp number are placeholders and must be replaced with verified business details before launch.</p>
+        </aside>
       </div>
     </section>
   </main>
@@ -583,6 +691,16 @@
       document.addEventListener('keydown', event => {
         if (event.key === 'Escape') closeMenu();
       });
+
+      // The form is front-end markup only until a real submission endpoint is configured.
+      const quoteForm = document.getElementById('quoteForm');
+      if (quoteForm) {
+        quoteForm.addEventListener('submit', event => {
+          event.preventDefault();
+          const notice = document.getElementById('formNotice');
+          notice.textContent = 'Thank you for your interest. Please use the phone or WhatsApp contact while the enquiry form is being connected.';
+        });
+      }
     })();
   </script>
 </body>
