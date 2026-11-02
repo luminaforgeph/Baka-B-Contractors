@@ -411,15 +411,15 @@
 
       <div class="stats-bar" aria-label="Baka B Contractors company statistics">
         <div class="stat-item">
-          <span class="stat-number" data-target="15" data-suffix="+">0+</span>
+          <span class="stat-number" data-target="15" data-suffix="+">15+</span>
           <span class="stat-label">Years Experience</span>
         </div>
         <div class="stat-item">
-          <span class="stat-number" data-target="50" data-suffix="+">0+</span>
+          <span class="stat-number" data-target="50" data-suffix="+">50+</span>
           <span class="stat-label">Projects Completed</span>
         </div>
         <div class="stat-item">
-          <span class="stat-number" data-target="100" data-suffix="%">0%</span>
+          <span class="stat-number" data-target="100" data-suffix="%">100%</span>
           <span class="stat-label">On-Time Delivery</span>
         </div>
         <div class="stat-item">
@@ -661,7 +661,7 @@
               </div>
             </div>
           </div>
-          <a href="https://wa.me/2347066554640" target="_blank" rel="noopener noreferrer" class="mt-14 inline-flex w-full items-center justify-center gap-3 bg-[#C9A84C] px-6 py-5 text-sm font-bold text-[#1A1A1A] transition hover:bg-[#dfc16f]">
+          <a href="https://wa.me/2347066554640?text=Hello%20Baka%20B%20Contractors" target="_blank" rel="noopener noreferrer" class="mt-14 inline-flex w-full items-center justify-center gap-3 bg-[#C9A84C] px-6 py-5 text-sm font-bold text-[#1A1A1A] transition hover:bg-[#dfc16f]">
             <i class="fa-brands fa-whatsapp text-xl" aria-hidden="true"></i>
             Chat on WhatsApp
             <i class="fa-solid fa-arrow-up-right-from-square ml-auto text-xs" aria-hidden="true"></i>
@@ -686,7 +686,7 @@
   </footer>
 
   <!-- Floating WhatsApp contact shortcut -->
-  <a class="whatsapp-float" href="https://wa.me/2347066554640" target="_blank" rel="noopener noreferrer" aria-label="Chat with Baka B Contractors on WhatsApp">
+  <a class="whatsapp-float" href="https://wa.me/2347066554640?text=Hello%20Baka%20B%20Contractors" target="_blank" rel="noopener noreferrer" aria-label="Chat with Baka B Contractors on WhatsApp">
     <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
   </a>
 
@@ -755,39 +755,96 @@
         });
       }
 
-      // Count up the stats once they enter the viewport.
+      // Animate stats when the complete stats bar enters the viewport.
+      // The final figures are also present in the HTML, so they remain visible
+      // when JavaScript is disabled or the observer cannot be used.
+      const statsBar = document.querySelector('.stats-bar');
       const statNumbers = document.querySelectorAll('.stat-number[data-target]');
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const prefersReducedMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let countersStarted = false;
+      let observerFallbackTimer;
+
+      const showFinalStats = () => {
+        statNumbers.forEach(element => {
+          const target = Number(element.dataset.target || 0);
+          const suffix = element.dataset.suffix || '';
+          element.textContent = target.toLocaleString() + suffix;
+        });
+      };
+
       const animateCounter = element => {
         const target = Number(element.dataset.target || 0);
         const suffix = element.dataset.suffix || '';
-        if (prefersReducedMotion) {
+
+        if (prefersReducedMotion || typeof window.requestAnimationFrame !== 'function') {
           element.textContent = target.toLocaleString() + suffix;
           return;
         }
+
         const duration = 1500;
         const startTime = performance.now();
+        element.textContent = '0' + suffix;
+
         const tick = now => {
           const progress = Math.min((now - startTime) / duration, 1);
           const eased = 1 - Math.pow(1 - progress, 4);
-          element.textContent = Math.floor(target * eased).toLocaleString() + suffix;
-          if (progress < 1) window.requestAnimationFrame(tick);
-          else element.textContent = target.toLocaleString() + suffix;
+          const currentValue = Math.floor(target * eased);
+
+          element.textContent = currentValue.toLocaleString() + suffix;
+
+          if (progress < 1) {
+            window.requestAnimationFrame(tick);
+          } else {
+            element.textContent = target.toLocaleString() + suffix;
+          }
         };
+
         window.requestAnimationFrame(tick);
       };
-      if ('IntersectionObserver' in window && statNumbers.length) {
-        const statsObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              animateCounter(entry.target);
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.35 });
-        statNumbers.forEach(number => statsObserver.observe(number));
-      } else {
+
+      const startStatsAnimation = () => {
+        if (countersStarted) return;
+        countersStarted = true;
+        window.clearTimeout(observerFallbackTimer);
         statNumbers.forEach(animateCounter);
+      };
+
+      if (statsBar && statNumbers.length && 'IntersectionObserver' in window) {
+        try {
+          const statsObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                startStatsAnimation();
+                observer.disconnect();
+              }
+            });
+          }, {
+            root: null,
+            rootMargin: '0px 0px -5% 0px',
+            threshold: 0.15
+          });
+
+          // Observe the whole stats bar, not each individual number.
+          statsObserver.observe(statsBar);
+
+          // If the callback never arrives, restore the final values after 5 seconds.
+          observerFallbackTimer = window.setTimeout(() => {
+            if (!countersStarted) {
+              statsObserver.disconnect();
+              showFinalStats();
+              countersStarted = true;
+            }
+          }, 5000);
+        } catch (error) {
+          console.warn('Stats observer could not be initialized:', error);
+          showFinalStats();
+          countersStarted = true;
+        }
+      } else {
+        // Missing stats markup or unsupported observer: keep the final figures visible.
+        showFinalStats();
+        countersStarted = true;
       }
 
       // This acknowledgement is not a live submission; configure a form endpoint before launch.
